@@ -18,8 +18,9 @@ module AutoHtmlFor
     def auto_html_for(raw_attrs, &proc)
       include AutoHtmlFor::InstanceMethods
       db_exsists = ActiveRecord::Base.connection rescue false
-      
-      if db_exsists && defined?(ActiveRecord) == "constant"
+      return unless db_exsists
+
+      if defined?(ActiveRecord) == "constant"
         return unless ActiveRecord::Base.connection.table_exists? self.table_name
       end
 
